@@ -1,8 +1,10 @@
 export const environment = {
   production: false,
-  api: 'https://api.nutson.us/api/v2/',
+  api: 'https://api.nutson.us/api/',
+  apiVersion: 'v2',
   auth: {
-    url: 'https://api.nutson.us/api/v3/auth/',
+    url: 'https://api.nutson.us/api/',
+    authVersion: 'v3',
     body: {
       installation_token: '2kxlfAbJwFdAuh0',
       device: {
@@ -18,4 +20,3 @@ export const environment = {
     }
   },
 };
-

@@ -1,0 +1,29 @@
+:host {
+  ::ng-deep {
+    .header__logout-btn {
+      [tuiWrapper][data-appearance='flat'] {
+        background-color: transparent;
+        color: var(--tui-base-01);
+      }
+    }
+  }
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  font: var(--tui-font-heading-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  padding: 0 40px;
+  color: var(--tui-base-01);
+  background-color: #09065b;
+  border-bottom: 1px solid var(--tui-base-03);
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+}

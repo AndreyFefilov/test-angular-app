@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import { AuthService } from './auth/services';
+import { Component, inject, OnInit } from '@angular/core';
+import {AuthService} from "@core/services";
 
 @Component({
   selector: 'app-root',

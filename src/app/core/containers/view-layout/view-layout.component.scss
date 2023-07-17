@@ -1,0 +1,12 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+main {
+  height: 100%;
+  padding: var(--tui-padding-l);
+  background-color: var(--tui-base-02);
+}

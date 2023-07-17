@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="header__title">
+    <button
+      *ngIf="canShowBackButton$ | async"
+      class="tui-space_right-4"
+      appearance="mono"
+      icon="tuiIconChevronLeft"
+      type="button"
+      tuiButton
+      goBackButton
+    >
+      Назад
+    </button>
+
+    <h6 class="header__title-text">Text</h6>
+  </div>
+
+  <button
+    class="header__logout-btn"
+    tuiButton
+    icon="tuiIconLogOutLarge"
+    [tuiHintShowDelay]="0"
+    tuiHintAppearance="onDark"
+    tuiHintDirection="left"
+    tuiHint="Выйти"
+  ></button>
+</div>
