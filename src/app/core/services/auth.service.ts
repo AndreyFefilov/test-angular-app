@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   // Т.к. нет эндпойнта для рефреша, будем имитировать методом logIn()
-  refreshAccessToken(): ObservableApiResponse<AuthData> {
+  refreshAccessToken(refreshToken: string): ObservableApiResponse<AuthData> {
     return this.logIn();
   }
 

@@ -16,3 +16,8 @@ export const checkAuthStatus = createAction(
   '[Auth] Check Auth Status',
   props<{ isLoggedIn: boolean }>()
 );
+
+export const refreshToken = createAction(
+  '[Auth] Refresh Token',
+  props<{ refresh_token: string }>()
+);

@@ -19,11 +19,19 @@ export class AuthGuard {
     return this.store.pipe(
       select(selectLoggedIn),
       switchMap((isLoggedIn: boolean) => {
+        let canActivate = isLoggedIn;
+
         if (this.isLoginPage(routerState.url)) {
-          return of(!isLoggedIn);
+          canActivate = !isLoggedIn;
+
+          if (!canActivate) {
+            this.router.navigate([RoutesPathsEnum.Home]);
+          }
+
+          return of(canActivate);
         }
 
-        if (isLoggedIn) {
+        if (canActivate) {
           return of(true);
         }
 
