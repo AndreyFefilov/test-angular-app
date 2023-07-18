@@ -10,8 +10,10 @@ import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { of } from 'rxjs';
 
+import { AuthState } from '@state/auth';
 import { CoreModule } from '@core/core.module';
 import { AuthService } from '@core/services';
 import { appInitFactory } from '@core/factories/app-init.factory';
@@ -34,6 +36,7 @@ registerLocaleData(ru, 'ru');
     TuiRootModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -62,7 +65,7 @@ registerLocaleData(ru, 'ru');
     {
       provide: APP_INITIALIZER,
       useFactory: appInitFactory,
-      deps: [AuthService, Store],
+      deps: [AuthService, Store<AuthState>],
       multi: true
     }
   ],

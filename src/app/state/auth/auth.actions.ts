@@ -19,5 +19,5 @@ export const checkAuthStatus = createAction(
 
 export const refreshToken = createAction(
   '[Auth] Refresh Token',
-  props<{ refresh_token: string }>()
+  props<{ refreshToken: string }>()
 );

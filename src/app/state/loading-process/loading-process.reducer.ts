@@ -8,7 +8,7 @@ export const loadingProcessReducer = createReducer(
   initialLoadingProcessState,
   on(setLoadingInProcess, (state, { isLoading }): LoadingProcessState => ({
       ...state,
-    isLoading
+      isLoading
     })
   ),
 );

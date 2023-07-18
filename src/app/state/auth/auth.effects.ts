@@ -8,7 +8,7 @@ import { catchError, first, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '@core/services';
 import { RoutesPathsEnum } from '@core/enums';
 import { AuthData } from '@core/models';
-import {logIn, logInFailure, logInSuccess, logOut, refreshToken} from './auth.actions';
+import { logIn, logInFailure, logInSuccess, logOut, refreshToken } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -58,7 +58,7 @@ export class AuthEffects {
   readonly refreshToken$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(refreshToken),
-      switchMap(({ refresh_token }) => this.authService.refreshAccessToken(refresh_token).pipe(
+      switchMap(({ refreshToken }) => this.authService.refreshAccessToken(refreshToken).pipe(
         map((response) => response.data),
         map((authData) => logInSuccess({ authData })),
         catchError(() => {
@@ -70,5 +70,5 @@ export class AuthEffects {
         })
       ))
     )
-  },{ dispatch: false });
+  });
 }

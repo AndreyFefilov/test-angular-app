@@ -1,6 +1,6 @@
-import {createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
+import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 
-import {checkAuthStatus, logInFailure, logInSuccess, logOut} from './auth.actions';
+import { checkAuthStatus, logInFailure, logInSuccess, logOut } from './auth.actions';
 import { AuthState, initialAuthState } from './auth.state';
 
 export const authReducer = createReducer(
