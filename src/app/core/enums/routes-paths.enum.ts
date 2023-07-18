@@ -1,5 +1,5 @@
 export enum RoutesPathsEnum {
-  Auth = 'auth',
+  Login = 'login',
   Home = 'home',
   Feed = 'feed'
 }

@@ -1,0 +1,26 @@
+<tui-block-status [card]="true">
+  <tui-island textAlign="center">
+    <h3 class="tui-island__title">Вход в систему</h3>
+
+    <p class="tui-island__paragraph">
+      Для того чтобы войти, надо тыкнуть кнопку снизу
+    </p>
+
+    <tui-loader
+      [showLoader]="!!isLoading()"
+      [inheritColor]="true"
+      [overlay]="true"
+    >
+      <button
+        class="tui-island__footer-button"
+        tuiButton
+        iconRight="tuiIconLogIn"
+        type="button"
+        size="m"
+        (click)="logIn()"
+      >
+        Войти
+      </button>
+    </tui-loader>
+  </tui-island>
+</tui-block-status>

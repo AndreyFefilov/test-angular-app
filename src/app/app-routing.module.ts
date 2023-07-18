@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {RoutesPathsEnum} from "@core/enums";
+
+import { RoutesPathsEnum } from '@core/enums';
 
 const APP_ROUTES: Routes = [
   {
-    path: RoutesPathsEnum.Auth,
-    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
+    path: RoutesPathsEnum.Login,
+    loadChildren: () => import('@features/login/login.module').then(m => m.LoginModule),
     title: 'Авторизация'
   },
   {
@@ -17,7 +18,7 @@ const APP_ROUTES: Routes = [
   {
     path: RoutesPathsEnum.Feed,
     // canActivate: [],
-    loadChildren: () => import('@features/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('@features/media/media.module').then(m => m.MediaModule),
     title: 'Медиа'
   },
   {

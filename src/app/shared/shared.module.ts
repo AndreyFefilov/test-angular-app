@@ -8,12 +8,15 @@ import {
 } from '@taiga-ui/core';
 import { TuiBlockStatusModule } from '@taiga-ui/layout';
 
+import { GoBackDirective } from '@shared/directives';
+
 const MODULES = [
   CommonModule,
   TuiButtonModule,
   TuiBlockStatusModule,
   TuiDialogModule,
   TuiAlertModule,
+  GoBackDirective
 ];
 
 @NgModule({

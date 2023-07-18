@@ -1,7 +1,7 @@
 <div class="header">
   <div class="header__title">
     <button
-      *ngIf="canShowBackButton$ | async"
+      *ngIf="canShowBackButton()"
       class="tui-space_right-4"
       appearance="mono"
       icon="tuiIconChevronLeft"
@@ -16,6 +16,7 @@
   </div>
 
   <button
+    *ngIf="isLoggedIn()"
     class="header__logout-btn"
     tuiButton
     icon="tuiIconLogOutLarge"
