@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,11 +8,13 @@ import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { TuiRootModule, TUI_SANITIZER, TUI_BUTTON_OPTIONS } from '@taiga-ui/core';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { of } from 'rxjs';
 
 import { CoreModule } from '@core/core.module';
+import { AuthService } from '@core/services';
+import { appInitFactory } from '@core/factories/app-init.factory';
 import { environment } from '@environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,6 +59,12 @@ registerLocaleData(ru, 'ru');
         size: 's',
       },
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitFactory,
+      deps: [AuthService, Store],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

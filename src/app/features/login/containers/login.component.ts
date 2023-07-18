@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 import { select, Store } from '@ngrx/store';
 
-import { AuthActions } from '@state/auth';
+import { AuthActions, AuthState } from '@state/auth';
 import { selectIsDataLoading } from '@state/loading-process';
 
 @Component({
@@ -12,7 +12,7 @@ import { selectIsDataLoading } from '@state/loading-process';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  private readonly store = inject(Store);
+  private readonly store = inject(Store<AuthState>);
 
   readonly isLoading = toSignal(this.store.pipe(select(selectIsDataLoading)));
 

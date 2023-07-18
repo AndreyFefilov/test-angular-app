@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RoutesPathsEnum } from '@core/enums';
+import { AuthGuard } from '@core/guards';
 
 const APP_ROUTES: Routes = [
   {
@@ -11,13 +12,11 @@ const APP_ROUTES: Routes = [
   },
   {
     path: RoutesPathsEnum.Home,
-    // canActivate: [],
     loadChildren: () => import('@features/home/home.module').then(m => m.HomeModule),
     title: 'Главная'
   },
   {
     path: RoutesPathsEnum.Feed,
-    // canActivate: [],
     loadChildren: () => import('@features/media/media.module').then(m => m.MediaModule),
     title: 'Медиа'
   },
@@ -33,6 +32,12 @@ const APP_ROUTES: Routes = [
     title: 'Ошибка 404'
   },
 ];
+
+APP_ROUTES.forEach((route) => {
+  if (!route.redirectTo) {
+    route.canActivate = [AuthGuard];
+  }
+});
 
 @NgModule({
   imports: [RouterModule.forRoot(APP_ROUTES)],

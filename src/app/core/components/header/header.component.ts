@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { RoutesPathsEnum } from '@core/enums';
 import { GoBackDirective } from '@shared/directives';
 import { selectLoggedIn } from '@state/auth';
+import { AppState } from '@state/index';
+import { AuthActions } from '@state/auth';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +22,7 @@ import { selectLoggedIn } from '@state/auth';
 })
 export class HeaderComponent {
   private readonly location = inject(Location);
-  private readonly store = inject(Store);
+  private readonly store = inject(Store<AppState>);
 
   readonly isLoggedIn = toSignal(this.store.pipe(select(selectLoggedIn)));
 
@@ -33,4 +35,8 @@ export class HeaderComponent {
       });
     })
   );
+
+  logOut() {
+    this.store.dispatch(AuthActions.logOut());
+  }
 }

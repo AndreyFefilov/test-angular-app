@@ -11,3 +11,8 @@ export const logInSuccess = createAction(
 export const logInFailure = createAction('[Auth] Log In Failure');
 
 export const logOut = createAction('[Auth] Log Out');
+
+export const checkAuthStatus = createAction(
+  '[Auth] Check Auth Status',
+  props<{ isLoggedIn: boolean }>()
+);
