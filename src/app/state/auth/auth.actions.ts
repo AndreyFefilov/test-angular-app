@@ -21,3 +21,9 @@ export const refreshToken = createAction(
   '[Auth] Refresh Token',
   props<{ refreshToken: string }>()
 );
+
+export const refreshTokenSuccess = createAction(
+  '[Auth] Refresh Token Success',
+  props<{ authData: AuthData }>()
+);
+

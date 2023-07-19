@@ -12,7 +12,9 @@
       Назад
     </button>
 
-    <h6 class="header__title-text">{{ headerTitle() }}</h6>
+    <h6 class="header__title-text">
+      {{ headerTitle() ?? 'Тестовое Web-приложение' }}
+    </h6>
   </div>
 
   <button

@@ -7,17 +7,42 @@ import {
   HttpRequest
 } from '@angular/common/http';
 
-import { catchError, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
+import {catchError, Observable, switchMap, throwError} from 'rxjs';
 
-import { ErrorsHandlerService } from '@core/services/errors-handler.service';
+import { AuthService, ErrorsHandlerService } from '@core/services';
+import { AuthActions, AuthState } from '@state/auth';
 
 @Injectable()
 export class ErrorsInterceptor implements HttpInterceptor {
   private readonly errorsHandlerService = inject(ErrorsHandlerService);
+  private readonly authService = inject(AuthService);
+  private readonly store = inject(Store<AuthState>);
+  private readonly actions$ = inject(Actions);
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => this.errorsHandlerService.handleError(error))
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          const { access_token, refresh_token } = this.authService.getAuthTokens();
+
+          if (access_token && refresh_token) {
+            this.store.dispatch(AuthActions.refreshToken({ refreshToken: refresh_token }));
+
+            return this.actions$.pipe(
+              ofType(AuthActions.refreshTokenSuccess),
+              switchMap(() => next.handle(this.authService.setAuthorizationHeader(request)))
+            );
+          }
+
+          this.store.dispatch(AuthActions.logOut());
+
+          return throwError(() => error);
+        }
+
+        return this.errorsHandlerService.handleError(error);
+      })
     )
   }
 }

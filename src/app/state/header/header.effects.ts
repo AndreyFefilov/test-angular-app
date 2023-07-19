@@ -12,8 +12,8 @@ export class HeaderEffects {
 
   readonly navigationEnd$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ROUTER_NAVIGATED),
-      map((action: RouterNavigatedAction) => action.payload.routerState.root.firstChild?.title),
+      ofType<RouterNavigatedAction>(ROUTER_NAVIGATED),
+      map((action) => action.payload.routerState.root.firstChild?.title),
       map((headerTitle: string | undefined) => setHeaderTitle({ headerTitle }))
     )
   );

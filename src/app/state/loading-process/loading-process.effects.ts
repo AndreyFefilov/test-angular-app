@@ -4,15 +4,19 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map } from 'rxjs';
 
 import { AuthActions } from '@state/auth';
+import { MediaActions } from '@features/media/feature-state';
 import { setLoadingInProcess } from './loading-process.actions';
 
 const START_LOADING_ACTIONS = [
-  AuthActions.logIn
+  AuthActions.logIn,
+  MediaActions.loadMedia
 ];
 
 const STOP_LOADING_ACTIONS = [
   AuthActions.logInSuccess,
-  AuthActions.logInFailure
+  AuthActions.logInFailure,
+  MediaActions.loadMediaSuccess,
+  MediaActions.loadMediaFailure
 ];
 
 @Injectable()

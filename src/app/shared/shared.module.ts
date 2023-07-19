@@ -12,11 +12,11 @@ import { GoBackDirective } from '@shared/directives';
 
 const MODULES = [
   CommonModule,
+  GoBackDirective,
   TuiButtonModule,
   TuiBlockStatusModule,
   TuiDialogModule,
   TuiAlertModule,
-  GoBackDirective
 ];
 
 @NgModule({

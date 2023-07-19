@@ -10,6 +10,7 @@ import {
   AUTH_BODY_TOKEN,
   AUTH_URL_TOKEN
 } from '@core/tokens';
+import {HttpRequest} from "@angular/common/http";
 
 type AuthTokens = Omit<AuthData, 'user_id'>;
 
@@ -50,6 +51,20 @@ export class AuthService {
 
   checkAuthStatus(): boolean {
     return !!this.getAuthTokens().access_token;
+  }
+
+  setAuthorizationHeader(request: HttpRequest<any>) {
+    const { access_token } = this.getAuthTokens();
+
+    if (access_token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${access_token}`
+        }
+      });
+    }
+
+    return request;
   }
 
   private clearAuthTokens() {

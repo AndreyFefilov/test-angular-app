@@ -7,11 +7,13 @@
     Смотреть тут особо нечего, поэтому давайте посмотрим медиа ↓
   </span>
 
-  <button
-    tuiButton
-    appearance="secondary"
-    size="l"
-  >
-    Перейти к медиа
-  </button>
+  <a [routerLink]="mediaRoutePath">
+    <button
+      tuiButton
+      appearance="secondary"
+      size="l"
+    >
+      Перейти к медиа
+    </button>
+  </a>
 </tui-block-status>

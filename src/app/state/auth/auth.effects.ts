@@ -8,7 +8,7 @@ import { catchError, first, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '@core/services';
 import { RoutesPathsEnum } from '@core/enums';
 import { AuthData } from '@core/models';
-import { logIn, logInFailure, logInSuccess, logOut, refreshToken } from './auth.actions';
+import { logIn, logInFailure, logInSuccess, logOut, refreshToken, refreshTokenSuccess } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -60,7 +60,10 @@ export class AuthEffects {
       ofType(refreshToken),
       switchMap(({ refreshToken }) => this.authService.refreshAccessToken(refreshToken).pipe(
         map((response) => response.data),
-        map((authData) => logInSuccess({ authData })),
+        tap(({ access_token, refresh_token }) => {
+          this.authService.saveAuthTokens({ access_token, refresh_token });
+        }),
+        map((authData) => refreshTokenSuccess({ authData })),
         catchError(() => {
           this.alertService
             .open('Не удалось обновить токен', { status: TuiNotification.Error })

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 
-import { checkAuthStatus, logInFailure, logInSuccess, logOut } from './auth.actions';
+import { checkAuthStatus, logInFailure, logInSuccess, logOut, refreshTokenSuccess } from './auth.actions';
 import { AuthState, initialAuthState } from './auth.state';
 
 export const authReducer = createReducer(
@@ -11,10 +11,15 @@ export const authReducer = createReducer(
       isLoggedIn: true,
     })
   ),
+  on(refreshTokenSuccess, (state, { authData }): AuthState => ({
+    ...state,
+    authData,
+  })),
   on(logInFailure, (): AuthState => ({ ...initialAuthState })),
   on(checkAuthStatus, (state, { isLoggedIn }): AuthState => ({ ...state, isLoggedIn })),
   on(logOut, (): AuthState => ({ ...initialAuthState })),
 );
+
 export const selectAuthFeature = createFeatureSelector<AuthState>('auth');
 
 export const selectLoggedIn = createSelector(

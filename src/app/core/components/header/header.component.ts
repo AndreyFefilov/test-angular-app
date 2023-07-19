@@ -37,7 +37,7 @@ export class HeaderComponent {
     new Observable<boolean>((subscriber) => {
       this.location.onUrlChange((urlPath) => {
         const canShow =
-          !urlPath.includes(RoutesPathsEnum.Login) && !urlPath.includes(RoutesPathsEnum.Home);
+          !urlPath.endsWith(RoutesPathsEnum.Login) && !urlPath.endsWith(RoutesPathsEnum.Home);
         subscriber.next(canShow);
       });
     })

@@ -18,7 +18,7 @@ const APP_ROUTES: Routes = [
   {
     path: RoutesPathsEnum.Feed,
     loadChildren: () => import('@features/media/media.module').then(m => m.MediaModule),
-    title: 'Медиа'
+    title: 'Медиа',
   },
   {
     path: '',
@@ -35,7 +35,7 @@ const APP_ROUTES: Routes = [
 
 APP_ROUTES.forEach((route) => {
   if (!route.redirectTo) {
-    route.canActivate = [AuthGuard];
+    route.canActivate?.push(AuthGuard);
   }
 });
 
