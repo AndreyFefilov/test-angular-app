@@ -35,7 +35,7 @@ const APP_ROUTES: Routes = [
 
 APP_ROUTES.forEach((route) => {
   if (!route.redirectTo) {
-    route.canActivate?.push(AuthGuard);
+    route.canActivate = [AuthGuard];
   }
 });
 

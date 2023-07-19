@@ -1,6 +1,12 @@
 :host {
   display: block;
-  width: 100%;
-  height: 100vh;
   background-color: transparent;
+
+  ::ng-deep tui-root>tui-scroll-controls>.t-bar_vertical {
+    top: 4rem;
+  }
+}
+
+tui-root {
+  height: 100%;
 }

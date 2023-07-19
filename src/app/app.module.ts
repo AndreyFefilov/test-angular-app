@@ -5,8 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
-import { TuiRootModule, TUI_SANITIZER, TUI_BUTTON_OPTIONS } from '@taiga-ui/core';
+import { TUI_SANITIZER, TUI_BUTTON_OPTIONS, TuiRootModule } from '@taiga-ui/core';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
+import {TuiPreviewModule} from '@taiga-ui/addon-preview';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -32,8 +33,9 @@ registerLocaleData(ru, 'ru');
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    CoreModule,
     TuiRootModule,
+    TuiPreviewModule,
+    CoreModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule.forRoot(),

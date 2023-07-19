@@ -7,4 +7,10 @@ body {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--tui-base-02) !important;
+}
+
+.grey-text {
+  font-size: 11px;
+  color: var(--tui-base-07);
 }

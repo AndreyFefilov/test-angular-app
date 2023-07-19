@@ -1,0 +1,103 @@
+<div class="card-body">
+  <tui-island
+    [hoverable]="true"
+    (click)="openVideo()"
+  >
+    <div class="video-preview-wrapper">
+      <img
+        class="video-preview"
+        [src]="mediaItem.preview_url"
+        [alt]="'Превью: ' + mediaItem.media_name"
+      >
+
+      <img
+        class="play-video-btn"
+        src="./assets/icons/play_video.svg"
+        alt="play video button"
+      />
+    </div>
+  </tui-island>
+
+  <section class="info">
+    <h2>{{ mediaItem.media_name || 'Тут должно быть название видео' }}</h2>
+
+    <div class="statistics">
+      <div class="statistics__left">
+        <tui-badge
+          *ngFor="let badge of statisticsBadges"
+          size="l"
+          status="neutral"
+          [value]="badge.text"
+          [tuiHint]="badge.hint"
+          class="tui-space_right-3"
+        >
+          <tui-svg [src]="badge.icon"></tui-svg>
+        </tui-badge>
+      </div>
+
+      <div class="statistics__right grey-text">
+        <tui-svg
+          class="tui-space_right-1"
+          src="tuiIconEye"
+          tuiHint="Всего просмотров"
+        ></tui-svg>
+        {{ mediaItem.counters.views | number }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="mediaItem.media_description"
+      class="description tui-space_top-4"
+    >
+      <tui-line-clamp
+        class="description__clamp"
+        [content]="mediaItem.media_description"
+        [linesLimit]="descriptionLinesLimit"
+      />
+
+      <button
+        *ngIf="canDisplayShowMoreBtn"
+        size="xs"
+        tuiButton
+        type="button"
+        (click)="toggleShowMoreDescription()"
+      >
+        {{ descriptionIsCollapsed ? 'Показать больше' : 'Скрыть' }}
+      </button>
+    </div>
+  </section>
+</div>
+
+<ng-template
+    #video
+    let-preview
+>
+  <tui-preview
+    [rotatable]="false"
+    [zoomable]="false"
+  >
+    <video
+      tuiMedia
+      controls
+      class="video"
+      width="700"
+      [currentTime]="0"
+      [paused]="false"
+      [volume]="1"
+    >
+      <source
+        [src]="mediaItem.media_url"
+        type="video/mp4"
+      />
+    </video>
+
+    <button
+      tuiIconButton
+      tuiPreviewAction
+      icon="tuiIconCloseLarge"
+      title="Close"
+      type="button"
+      (click)="preview.complete()"
+    ></button>
+  </tui-preview>
+</ng-template>

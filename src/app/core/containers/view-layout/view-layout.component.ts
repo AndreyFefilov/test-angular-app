@@ -10,5 +10,4 @@ import { HeaderComponent } from '@core/components';
   standalone: true,
 })
 export class ViewLayoutComponent {
-
 }

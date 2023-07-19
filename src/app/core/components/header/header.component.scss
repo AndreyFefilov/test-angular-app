@@ -10,17 +10,20 @@
 }
 
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  font: var(--tui-font-heading-4);
+  left: 0;
+  right: 0;
+  z-index: 1;
   display: flex;
+  font: var(--tui-font-heading-4);
   justify-content: space-between;
   align-items: center;
   height: 4rem;
   padding: 0 40px;
   color: var(--tui-base-01);
   background-color: #09065b;
-  border-bottom: 1px solid var(--tui-base-03);
+  box-shadow: 0 0.125rem 1rem #00000014;
 
   &__title {
     display: flex;

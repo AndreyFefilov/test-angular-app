@@ -2,10 +2,11 @@ import { inject, Injectable } from '@angular/core';
 
 import {select, Store} from '@ngrx/store';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
+import { RouterAction, RouterNavigatedAction } from '@ngrx/router-store/src/actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {catchError, map, of, switchMap, tap} from 'rxjs';
+import { catchError, first, map, of, switchMap, tap } from 'rxjs';
 
-import { loadMedia, loadMediaFailure, loadMediaSuccess } from './media.actions';
+import { loadMedia, loadMediaFailure, loadMediaSuccess, MediaActionsUnion } from './media.actions';
 import { MediaApiService } from '@features/media/services';
 import { selectMediaList } from '@features/media/feature-state/media.reducer';
 import { MediaActions, MediaState } from '@features/media/feature-state';
@@ -13,7 +14,7 @@ import { MediaActions, MediaState } from '@features/media/feature-state';
 @Injectable()
 export class MediaEffects {
   private readonly store = inject(Store<MediaState>);
-  private readonly actions$ = inject(Actions);
+  private readonly actions$ = inject(Actions<MediaActionsUnion> );
   private readonly mediaApiService = inject(MediaApiService);
 
   readonly loadMedia$ = createEffect(() => {
@@ -29,14 +30,17 @@ export class MediaEffects {
 
   readonly mediaNavigatedEnd$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ROUTER_NAVIGATED),
-      switchMap(() => this.store.pipe(select(selectMediaList))),
-      map((payload) => 'media' in payload ? payload.media : payload),
+      ofType<RouterAction<RouterNavigatedAction>>(ROUTER_NAVIGATED),
+      switchMap(() => this.store.pipe(
+          select(selectMediaList),
+          first()
+        ),
+      ),
       tap((media) => {
         if (Array.isArray(media) && !media.length) {
           this.store.dispatch(MediaActions.loadMedia());
         }
-      })
+      }),
     )
   }, { dispatch: false });
 }

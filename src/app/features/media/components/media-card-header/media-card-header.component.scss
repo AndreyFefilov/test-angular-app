@@ -1,0 +1,33 @@
+:host {
+  margin-top: 1rem;
+}
+
+.header {
+  justify-content: space-between;
+
+  &__created-date {
+    font-size: 12px;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20rem;
+      margin: 0;
+    }
+  }
+}
+
+.header, .header__user-name, .header__left {
+  display: flex;
+  align-items: center;
+}
+
+.confirmed-icon {
+  color: var(--tui-primary-active);
+}

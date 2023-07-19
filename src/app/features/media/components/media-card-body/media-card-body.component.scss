@@ -1,0 +1,59 @@
+.card-body {
+  margin-top: 1.5rem;
+}
+
+.video-preview-wrapper {
+  position: relative;
+  max-height: 450px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: 100%;
+  }
+}
+
+.video-preview {
+  transition: .2s ease;
+}
+
+.play-video-btn {
+  transition: .2s;
+  position: absolute;
+  width: 80px;
+}
+
+.statistics {
+  display: flex;
+  justify-content: space-between;
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.description {
+  &__clamp {
+    pointer-events: none;
+  }
+}
+
+tui-island {
+  background-color: var(--tui-secondary);
+  margin-bottom: 1rem;
+
+  &:hover {
+    .video-preview {
+      -webkit-filter: brightness(.6);
+      filter: brightness(.6);
+    }
+
+    .play-video-btn {
+      transform: scale(1.08);
+      filter: brightness(1.15);
+    }
+  }
+}

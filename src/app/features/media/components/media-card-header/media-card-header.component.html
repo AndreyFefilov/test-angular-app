@@ -1,0 +1,39 @@
+<header class="header">
+  <div class="header__left">
+    <tui-avatar
+      class="tui-space_right-4"
+      [autoColor]="true"
+      size="m"
+      [avatarUrl]="authorData.user_avatar_url ?? 'tuiIconUser'"
+    />
+
+    <div class="header__user-info">
+      <div class="header__user-name">
+        <h3 class="tui-space_right-1">
+          {{ authorData.person_name ?? authorData.user_name }}
+        </h3>
+
+        <tui-svg
+          *ngIf="authorData.is_identity_confirmed"
+          class="confirmed-icon"
+          src="tuiIconCheckCircle"
+          tuiHint="Подтверждённый пользователь"
+          tuiHintDirection="top-right"
+          [tuiHintShowDelay]="0"
+        />
+      </div>
+
+      <span
+        class="header__followers-counter grey-text"
+        appDeclensionRu
+        [value]="authorData.counters.followers"
+        [withValue]="true"
+        [wordVariants]="['подписчик', 'подписчика', 'подписчиков']"
+      ></span>
+    </div>
+  </div>
+
+  <span class="header__right grey-text header__created-date">
+    Опубликовано {{ mediaItem.created_at | numberToDate }}
+  </span>
+</header>

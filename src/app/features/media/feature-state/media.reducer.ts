@@ -5,7 +5,7 @@ import { MediaState, initialMediaState, MEDIA_FEATURE_NAME } from './media.state
 
 export const mediaReducer = createReducer(
   initialMediaState,
-  on(loadMediaSuccess, (state, { media }): MediaState => ({ ...state, media })),
+  on(loadMediaSuccess, (state: MediaState, { media }): MediaState => ({ ...state, media })),
   on(loadMediaFailure, (): MediaState => ({ ...initialMediaState })),
   on(clearMedia, (): MediaState => ({ ...initialMediaState })),
 );
@@ -14,5 +14,5 @@ export const selectMediaFeature = createFeatureSelector<MediaState>(MEDIA_FEATUR
 
 export const selectMediaList = createSelector(
   selectMediaFeature,
-  (state) => state.media
+  (state) => state.media,
 );

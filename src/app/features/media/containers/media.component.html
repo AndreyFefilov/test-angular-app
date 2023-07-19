@@ -1,1 +1,52 @@
-<p>media works!</p>
+<div class="container">
+  <tui-loader
+    [overlay]="true"
+    [inheritColor]="true"
+    [showLoader]="!!isLoading()"
+    textContent="Загрузка данных..."
+  >
+    <section class="actions" *ngIf="!isLoading()">
+      <div class="counter">
+        <h3 *ngIf="mediaCount() > 0">
+          Загружено
+          <span class="media-count">{{ mediaCount() + ' ' }}</span>
+          <span
+            appDeclensionRu
+            [value]="mediaCount()"
+            [wordVariants]="['пост', 'поста', 'постов']"
+          ></span>
+        </h3>
+      </div>
+
+      <button
+        class="action-btn"
+        tuiButton
+        [appearance]="mediaCount() > 0 ? 'secondary' : 'primary'"
+        size="m"
+        (click)="executeAction()"
+      >
+        {{ mediaCount() > 0 ? 'Очистить список' : 'Загрузить посты' }}
+      </button>
+    </section>
+
+    <section class="media-list">
+      <ng-container *ngFor="let mediaItem of mediaList(); trackBy: trackMediaById">
+        <app-media-card [mediaItem]="mediaItem"/>
+      </ng-container>
+
+      <tui-block-status
+        *ngIf="!mediaCount() && !isLoading()"
+        [card]="true"
+      >
+        <img
+          tuiSlot="top"
+          alt="not found"
+          src="./assets/images/not-found.svg"
+          class="image"
+        />
+
+        <h5>Нет данных =(</h5>
+      </tui-block-status>
+    </section>
+  </tui-loader>
+</div>

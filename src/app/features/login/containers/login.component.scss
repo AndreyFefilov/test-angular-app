@@ -1,3 +1,9 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 tui-loader {
   margin: 1rem calc(-1rem + 1px) calc(-1rem + 1px);
 

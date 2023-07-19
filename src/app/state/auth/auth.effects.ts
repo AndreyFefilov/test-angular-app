@@ -8,11 +8,19 @@ import { catchError, first, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '@core/services';
 import { RoutesPathsEnum } from '@core/enums';
 import { AuthData } from '@core/models';
-import { logIn, logInFailure, logInSuccess, logOut, refreshToken, refreshTokenSuccess } from './auth.actions';
+import {
+  AuthActionsType,
+  logIn,
+  logInFailure,
+  logInSuccess,
+  logOut,
+  refreshToken,
+  refreshTokenSuccess
+} from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
-  private readonly actions$ = inject(Actions);
+  private readonly actions$ = inject(Actions<AuthActionsType>);
   private readonly authService = inject(AuthService);
   private readonly alertService = inject(TuiAlertService);
   private readonly router = inject(Router);

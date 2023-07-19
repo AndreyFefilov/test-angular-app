@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, props, union } from '@ngrx/store';
 import { AuthData } from '@core/models';
 
 export const logIn = createAction('[Auth] Log In');
@@ -27,3 +27,14 @@ export const refreshTokenSuccess = createAction(
   props<{ authData: AuthData }>()
 );
 
+const actions = union({
+  logIn,
+  logInSuccess,
+  logInFailure,
+  logOut,
+  checkAuthStatus,
+  refreshToken,
+  refreshTokenSuccess
+});
+
+export type AuthActionsType = typeof actions;

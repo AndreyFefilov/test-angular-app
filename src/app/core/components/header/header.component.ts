@@ -3,7 +3,7 @@ import { CommonModule, Location } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { select, Store } from '@ngrx/store';
-import { TuiButtonModule, TuiHintModule } from '@taiga-ui/core';
+import { TuiButtonModule } from '@taiga-ui/core';
 import { Observable } from 'rxjs';
 
 import { RoutesPathsEnum } from '@core/enums';
@@ -20,7 +20,6 @@ import { selectHeaderTitle } from '@state/header';
   imports: [
     CommonModule,
     TuiButtonModule,
-    TuiHintModule,
     GoBackDirective
   ],
   standalone: true,

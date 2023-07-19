@@ -1,26 +1,43 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 
 import {
   TuiAlertModule,
   TuiButtonModule,
-  TuiDialogModule,
+  TuiHintModule,
+  TuiLoaderModule,
+  TuiSvgModule,
 } from '@taiga-ui/core';
+import { TuiIslandModule } from '@taiga-ui/kit';
 import { TuiBlockStatusModule } from '@taiga-ui/layout';
 
 import { GoBackDirective } from '@shared/directives';
+import { DeclensionRuDirective, NumberToDatePipe } from '@shared/pipes';
 
 const MODULES = [
   CommonModule,
   GoBackDirective,
   TuiButtonModule,
   TuiBlockStatusModule,
-  TuiDialogModule,
   TuiAlertModule,
+  TuiLoaderModule,
+  TuiIslandModule,
+  TuiHintModule,
+  TuiSvgModule
 ];
 
+const DIRECTIVES = [
+  NumberToDatePipe,
+  DeclensionRuDirective,
+]
+
 @NgModule({
+  declarations: DIRECTIVES,
   imports: MODULES,
-  exports: MODULES,
+  exports: [
+    ...MODULES,
+    ...DIRECTIVES
+  ],
+  providers: [DecimalPipe]
 })
 export class SharedModule {}
