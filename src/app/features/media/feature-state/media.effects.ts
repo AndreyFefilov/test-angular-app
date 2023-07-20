@@ -38,13 +38,10 @@ export class MediaEffects {
       switchMap(() => this.store.pipe(
           select(selectMediaList),
           first()
-        ),
+        )
       ),
-      tap((media) => {
-        if (Array.isArray(media) && !media.length) {
-          this.store.dispatch(MediaActions.loadMedia());
-        }
-      }),
+      filter((media) => Array.isArray(media) && !media.length),
+      map((media) => MediaActions.loadMedia())
     )
-  }, { dispatch: false });
+  });
 }

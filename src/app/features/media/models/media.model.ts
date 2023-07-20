@@ -4,6 +4,7 @@ export interface MediaItem {
   author: User;
   counters: MediaCounters;
   created_at: number;
+  is_liked: boolean;
   media_duration: number;
   media_id: string;
   media_name: string | null;
@@ -16,7 +17,7 @@ export interface MediaList {
   media: MediaItem[];
 }
 
-interface MediaCounters {
+export interface MediaCounters {
   comments: number;
   likes: number;
   reposts: number;

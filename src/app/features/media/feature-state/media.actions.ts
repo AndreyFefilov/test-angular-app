@@ -13,10 +13,16 @@ export const loadMediaFailure = createAction('[Media] Load Failure');
 
 export const clearMedia = createAction('[Media] Clear');
 
+export const setLike = createAction(
+  '[Media] Set Like',
+  props<{ mediaId: string; isLiked: boolean }>()
+);
+
 const actions = union({
   loadMedia,
   loadMediaSuccess,
   clearMedia,
+  setLike
 });
 
 export type MediaActionsUnion = typeof actions;

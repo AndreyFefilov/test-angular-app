@@ -9,13 +9,11 @@
 
     <div class="header__user-info">
       <div class="header__user-name">
-        <h3 class="tui-space_right-1">
-          {{ authorData.person_name ?? authorData.user_name }}
-        </h3>
+        <h3>{{ authorData.person_name ?? authorData.user_name }}</h3>
 
         <tui-svg
           *ngIf="authorData.is_identity_confirmed"
-          class="confirmed-icon"
+          class="confirmed-icon tui-space_left-1"
           src="tuiIconCheckCircle"
           tuiHint="Подтверждённый пользователь"
           tuiHintDirection="top-right"

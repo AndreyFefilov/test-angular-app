@@ -1,22 +1,33 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit, TemplateRef, ViewChild,
 } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
 
+import { select, Store } from '@ngrx/store';
 import { TuiDialogContext } from '@taiga-ui/core';
 import { TuiPreviewDialogService } from '@taiga-ui/addon-preview';
+import { TuiLineClampComponent } from '@taiga-ui/kit';
+import { filter, map, Observable } from 'rxjs';
 
-import { MediaItem } from '@features/media/models';
-import { getNumberOfTextLines } from '@core/utils';
+import { MediaCounters, MediaItem } from '@features/media/models';
+import { getMediaCountersById, MediaActions, MediaState } from '@features/media/feature-state';
+
+enum BadgeTypes {
+  Likes,
+  Comments,
+  Reposts
+}
 
 interface StatisticsBadge {
-  text: string | null;
+  value$: Observable<number | undefined>;
   icon: string;
   hint: string;
+  type: BadgeTypes;
+  class: string;
 }
 
 const DEFAULT_LINES_LIMIT = 2;
@@ -27,52 +38,85 @@ const DEFAULT_LINES_LIMIT = 2;
   styleUrls: ['./media-card-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MediaCardBodyComponent implements OnInit {
+export class MediaCardBodyComponent implements OnInit, AfterViewInit {
   @ViewChild('video')
-  readonly videoPreview?: TemplateRef<TuiDialogContext>;
+  readonly videoPreviewRef?: TemplateRef<TuiDialogContext>;
+
+  @ViewChild('lineClamp')
+  readonly lineClampRef?: TuiLineClampComponent;
 
   @Input({ required: true })
   mediaItem!: Omit<MediaItem, 'author' | 'created_at'>;
 
-  private readonly decimalPipe = inject(DecimalPipe);
+  private readonly store = inject(Store<MediaState>);
   private readonly previewDialogService = inject(TuiPreviewDialogService);
+
+  private counters$: Observable<MediaCounters | undefined>;
 
   statisticsBadges: StatisticsBadge[];
   descriptionLinesLimit = DEFAULT_LINES_LIMIT;
+  canDisplayShowMoreBtn: boolean;
+  BadgeTypes = BadgeTypes
 
   get descriptionIsCollapsed(): boolean {
     return this.descriptionLinesLimit === DEFAULT_LINES_LIMIT;
   }
 
-  get canDisplayShowMoreBtn(): boolean {
-    return getNumberOfTextLines('.description__clamp div.t-wrapper') > DEFAULT_LINES_LIMIT;
+  ngOnInit() {
+    this.counters$ = this.store.pipe(
+      select(getMediaCountersById(this.mediaItem.media_id)),
+      filter((x) => !!x)
+    );
+
+    this.statisticsBadges = this.initStatisticsBadges();
   }
 
-  ngOnInit() {
-    this.statisticsBadges = [
-      {
-        text: this.decimalPipe.transform(this.mediaItem.counters.likes),
-        icon: 'tuiIconHeart',
-        hint: 'Поставлено лайков'
-      },
-      {
-        text: this.decimalPipe.transform(this.mediaItem.counters.comments),
-        icon: 'tuiIconMessageSquare',
-        hint: 'Оставлено комментариев'
-      },
-      {
-        text: this.decimalPipe.transform(this.mediaItem.counters.reposts),
-        icon: 'tuiIconCornerUpRight',
-        hint: 'Сделано репостов'
-      },
-    ]
+  ngAfterViewInit() {
+    this.canDisplayShowMoreBtn = !!this.lineClampRef?.computedContent;
   }
 
   toggleShowMoreDescription() {
     this.descriptionLinesLimit = this.descriptionIsCollapsed ? 10 : DEFAULT_LINES_LIMIT;
   }
 
+  like(badgeType: BadgeTypes) {
+    if (badgeType !== BadgeTypes.Likes) {
+      return;
+    }
+
+    this.store.dispatch(MediaActions.setLike({
+      mediaId: this.mediaItem.media_id,
+      isLiked: !this.mediaItem.is_liked
+    }));
+  }
+
   openVideo() {
-    this.previewDialogService.open(this.videoPreview).subscribe();
+    this.previewDialogService.open(this.videoPreviewRef).subscribe();
+  }
+
+  private initStatisticsBadges(): StatisticsBadge[] {
+    return [
+      {
+        value$: this.counters$.pipe(map((counters) => counters?.likes)),
+        icon: 'tuiIconHeart',
+        hint: 'Поставлено лайков',
+        type: BadgeTypes.Likes,
+        class: 'likes-counter'
+      },
+      {
+        value$: this.counters$.pipe(map((counters) => counters?.comments)),
+        icon: 'tuiIconMessageSquare',
+        hint: 'Оставлено комментариев',
+        type: BadgeTypes.Comments,
+        class: 'comments-counter'
+      },
+      {
+        value$: this.counters$.pipe(map((counters) => counters?.reposts)),
+        icon: 'tuiIconCornerUpRight',
+        hint: 'Сделано репостов',
+        type: BadgeTypes.Reposts,
+        class: 'reposts-counter'
+      },
+    ];
   }
 }

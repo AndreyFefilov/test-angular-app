@@ -1,3 +1,6 @@
+$active-badge-color: #FF3347;
+$badge-transition: .3s;
+
 .card-body {
   margin-top: 1.5rem;
 }
@@ -54,6 +57,20 @@ tui-island {
     .play-video-btn {
       transform: scale(1.08);
       filter: brightness(1.15);
+    }
+  }
+}
+
+.likes-counter {
+  transition: $badge-transition;
+
+  &.active {
+    color: $active-badge-color;
+
+    tui-svg {
+      transition: $badge-transition;
+      color: $active-badge-color;
+      fill: $active-badge-color;
     }
   }
 }

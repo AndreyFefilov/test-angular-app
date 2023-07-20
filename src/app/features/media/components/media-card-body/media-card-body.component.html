@@ -25,12 +25,14 @@
       <div class="statistics__left">
         <tui-badge
           *ngFor="let badge of statisticsBadges"
+          class="tui-space_right-3 {{ badge.class }}"
+          [class.active]="mediaItem.is_liked && badge.type === BadgeTypes.Likes"
           size="l"
-          status="neutral"
+          [status]="mediaItem.is_liked && badge.type === BadgeTypes.Likes ? 'error' : 'neutral'"
           [hoverable]="true"
-          [value]="badge.text"
+          [value]="(badge.value$ | async) | number"
           [tuiHint]="badge.hint"
-          class="tui-space_right-3"
+          (click)="like(badge.type)"
         >
           <tui-svg [src]="badge.icon"></tui-svg>
         </tui-badge>
@@ -51,6 +53,7 @@
       class="description tui-space_top-4"
     >
       <tui-line-clamp
+        #lineClamp
         class="description__clamp"
         [content]="mediaItem.media_description"
         [linesLimit]="descriptionLinesLimit"
