@@ -7,6 +7,7 @@ import { checkAuthStatus } from '@state/auth/auth.actions';
 export function appInitFactory(authService: AuthService, store: Store<AuthState>) {
   return () => {
     const isLoggedIn = authService.checkAuthStatus();
+    console.log(isLoggedIn)
     store.dispatch(checkAuthStatus({ isLoggedIn }));
   }
 }

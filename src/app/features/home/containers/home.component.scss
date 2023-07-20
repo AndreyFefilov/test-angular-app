@@ -1,5 +1,7 @@
+@import 'src/styles/mixins/flexbox.scss';
+
 :host {
+  @include flexbox($direction: column);
+
   height: 100vh;
-  display: flex;
-  flex-direction: column;
 }

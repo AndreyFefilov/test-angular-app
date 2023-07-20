@@ -1,3 +1,6 @@
+@import '@taiga-ui/core/styles/taiga-ui-local';
+@import 'src/styles/mixins/flexbox';
+
 :host {
   ::ng-deep {
     .header__logout-btn {
@@ -10,23 +13,21 @@
 }
 
 .header {
+  @include flexbox($placeContent: center space-between, $alignItems: center);
+  @include shadow(4);
+
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1;
-  display: flex;
   font: var(--tui-font-heading-4);
-  justify-content: space-between;
-  align-items: center;
   height: 4rem;
   padding: 0 40px;
   color: var(--tui-base-01);
   background-color: #09065b;
-  box-shadow: 0 0.125rem 1rem #00000014;
 
   &__title {
-    display: flex;
-    align-items: center;
+    @include flexbox($alignItems: center);
   }
 }

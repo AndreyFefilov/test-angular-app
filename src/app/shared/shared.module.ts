@@ -12,7 +12,7 @@ import { TuiIslandModule } from '@taiga-ui/kit';
 import { TuiBlockStatusModule } from '@taiga-ui/layout';
 
 import { DeclensionRuDirective, GoBackDirective } from '@shared/directives';
-import { NumberToDatePipe } from '@shared/pipes';
+import { HashtagMentionColorizerPipe, NumberToDatePipe } from '@shared/pipes';
 
 const MODULES = [
   CommonModule,
@@ -26,17 +26,18 @@ const MODULES = [
   TuiSvgModule
 ];
 
-const DIRECTIVES = [
+const DECLARATIONS = [
   NumberToDatePipe,
   DeclensionRuDirective,
+  HashtagMentionColorizerPipe
 ]
 
 @NgModule({
-  declarations: DIRECTIVES,
+  declarations: DECLARATIONS,
   imports: MODULES,
   exports: [
     ...MODULES,
-    ...DIRECTIVES
+    ...DECLARATIONS
   ],
   providers: [DecimalPipe]
 })

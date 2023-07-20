@@ -1,17 +1,18 @@
+@import '@taiga-ui/core/styles/taiga-ui-local';
+@import 'src/styles/mixins/flexbox.scss';
+
 $active-badge-color: #FF3347;
-$badge-transition: .3s;
 
 .card-body {
   margin-top: 1.5rem;
 }
 
 .video-preview-wrapper {
+  @include flexbox($justifyContent: center, $alignItems: center);
+
   position: relative;
   max-height: 450px;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   img {
     height: 100%;
@@ -19,22 +20,21 @@ $badge-transition: .3s;
 }
 
 .video-preview {
-  transition: .2s ease;
+  @include transition(all, .2s);
 }
 
 .play-video-btn {
-  transition: .2s;
+  @include transition(all, .2s);
+
   position: absolute;
   width: 80px;
 }
 
 .statistics {
-  display: flex;
-  justify-content: space-between;
+  @include flexbox($justifyContent: space-between);
 
   &__right {
-    display: flex;
-    align-items: center;
+    @include flexbox($alignItems: center);
   }
 }
 
@@ -62,13 +62,14 @@ tui-island {
 }
 
 .likes-counter {
-  transition: $badge-transition;
+  @include transition(all);
 
   &.active {
     color: $active-badge-color;
 
     tui-svg {
-      transition: $badge-transition;
+      @include transition(all);
+
       color: $active-badge-color;
       fill: $active-badge-color;
     }

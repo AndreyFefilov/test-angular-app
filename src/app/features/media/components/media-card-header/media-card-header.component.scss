@@ -1,3 +1,5 @@
+@import 'src/styles/mixins/flexbox.scss';
+
 :host {
   margin-top: 1rem;
 }
@@ -10,8 +12,7 @@
   }
 
   &__user-info {
-    display: flex;
-    flex-direction: column;
+    @include flexbox($direction: column);
 
     h3 {
       white-space: nowrap;
@@ -24,8 +25,7 @@
 }
 
 .header, .header__user-name, .header__left {
-  display: flex;
-  align-items: center;
+  @include flexbox($alignItems: center);
 }
 
 .confirmed-icon {

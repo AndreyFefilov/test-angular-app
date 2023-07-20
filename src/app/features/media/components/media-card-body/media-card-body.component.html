@@ -55,9 +55,13 @@
       <tui-line-clamp
         #lineClamp
         class="description__clamp"
-        [content]="mediaItem.media_description"
+        [content]="mediaDescription"
         [linesLimit]="descriptionLinesLimit"
       />
+
+      <ng-template #mediaDescription>
+        <span [innerHTML]="mediaItem.media_description | hashtagMentionColor"></span>
+      </ng-template>
 
       <button
         *ngIf="canDisplayShowMoreBtn"

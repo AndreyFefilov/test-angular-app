@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { HeaderComponent } from '@core/components';
+import { HeaderComponent } from '@core/layout/components';
 
 @Component({
   selector: 'app-view-layout',

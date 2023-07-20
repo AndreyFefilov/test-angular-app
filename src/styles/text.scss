@@ -1,0 +1,5 @@
+@import '@taiga-ui/core/styles/taiga-ui-local';
+
+.grey-text {
+  @include font($size: 11px, $color: var(--tui-base-07));
+}

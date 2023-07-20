@@ -1,13 +1,15 @@
+@import 'src/styles/mixins/flexbox.scss';
+
 :host {
+  @include flexbox($direction: column);
+
   height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .container {
+  @include flexbox($direction: column, $alignItems: center, $shrink: 'none');
+
   height: 100%;
-  flex-direction: column;
-  align-items: center;
   padding: 6rem;
 }
 
@@ -17,9 +19,7 @@ tui-loader {
   min-height: 0;
 
   & > .t-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    @include flexbox($direction: column, $alignItems: flex-start);
   }
 }
 
@@ -28,17 +28,14 @@ tui-loader {
 }
 
 .actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexbox($placeContent: center center);
+
   margin-bottom: 2rem;
 }
 
 .media-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  @include flexbox($direction: column, $placeContent: center center, $alignItems: center);
+
   padding-bottom: 2rem;
 }
 

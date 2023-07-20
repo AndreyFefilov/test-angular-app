@@ -27,7 +27,7 @@ const APP_ROUTES: Routes = [
   },
   {
     path: '**',
-    loadComponent: () => import('@core/components/not-found/not-found.component')
+    loadComponent: () => import('@core/layout/components/not-found/not-found.component')
       .then(c => c.NotFoundComponent),
     title: 'Ошибка 404'
   },
