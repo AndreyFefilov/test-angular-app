@@ -32,7 +32,7 @@
           [hoverable]="true"
           [value]="(badge.value$ | async) | number"
           [tuiHint]="badge.hint"
-          (click)="like(badge.type)"
+          (click)="handleBadgeAction(badge.action)"
         >
           <tui-svg [src]="badge.icon"></tui-svg>
         </tui-badge>

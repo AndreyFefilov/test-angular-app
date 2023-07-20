@@ -23,11 +23,12 @@ enum BadgeTypes {
 }
 
 interface StatisticsBadge {
-  value$: Observable<number | undefined>;
+  action?: () => void;
+  class: string;
   icon: string;
   hint: string;
   type: BadgeTypes;
-  class: string;
+  value$: Observable<number | undefined>;
 }
 
 const DEFAULT_LINES_LIMIT = 2;
@@ -58,6 +59,13 @@ export class MediaCardBodyComponent implements OnInit, AfterViewInit {
   canDisplayShowMoreBtn: boolean;
   BadgeTypes = BadgeTypes
 
+  like = () => {
+    this.store.dispatch(MediaActions.setLike({
+      mediaId: this.mediaItem.media_id,
+      isLiked: !this.mediaItem.is_liked
+    }));
+  };
+
   get descriptionIsCollapsed(): boolean {
     return this.descriptionLinesLimit === DEFAULT_LINES_LIMIT;
   }
@@ -75,19 +83,14 @@ export class MediaCardBodyComponent implements OnInit, AfterViewInit {
     this.canDisplayShowMoreBtn = !!this.lineClampRef?.computedContent;
   }
 
-  toggleShowMoreDescription() {
-    this.descriptionLinesLimit = this.descriptionIsCollapsed ? 10 : DEFAULT_LINES_LIMIT;
+  handleBadgeAction(action: (() => void) | undefined) {
+    if (action) {
+      action();
+    }
   }
 
-  like(badgeType: BadgeTypes) {
-    if (badgeType !== BadgeTypes.Likes) {
-      return;
-    }
-
-    this.store.dispatch(MediaActions.setLike({
-      mediaId: this.mediaItem.media_id,
-      isLiked: !this.mediaItem.is_liked
-    }));
+  toggleShowMoreDescription() {
+    this.descriptionLinesLimit = this.descriptionIsCollapsed ? 10 : DEFAULT_LINES_LIMIT;
   }
 
   openVideo() {
@@ -97,25 +100,26 @@ export class MediaCardBodyComponent implements OnInit, AfterViewInit {
   private initStatisticsBadges(): StatisticsBadge[] {
     return [
       {
-        value$: this.counters$.pipe(map((counters) => counters?.likes)),
+        action: this.like,
         icon: 'tuiIconHeart',
         hint: 'Поставлено лайков',
         type: BadgeTypes.Likes,
-        class: 'likes-counter'
+        class: 'likes-counter',
+        value$: this.counters$.pipe(map((counters) => counters?.likes)),
       },
       {
-        value$: this.counters$.pipe(map((counters) => counters?.comments)),
         icon: 'tuiIconMessageSquare',
         hint: 'Оставлено комментариев',
         type: BadgeTypes.Comments,
-        class: 'comments-counter'
+        class: 'comments-counter',
+        value$: this.counters$.pipe(map((counters) => counters?.comments)),
       },
       {
-        value$: this.counters$.pipe(map((counters) => counters?.reposts)),
         icon: 'tuiIconCornerUpRight',
         hint: 'Сделано репостов',
         type: BadgeTypes.Reposts,
-        class: 'reposts-counter'
+        class: 'reposts-counter',
+        value$: this.counters$.pipe(map((counters) => counters?.reposts)),
       },
     ];
   }
