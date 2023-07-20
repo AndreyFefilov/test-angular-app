@@ -27,6 +27,7 @@
           *ngFor="let badge of statisticsBadges"
           size="l"
           status="neutral"
+          [hoverable]="true"
           [value]="badge.text"
           [tuiHint]="badge.hint"
           class="tui-space_right-3"

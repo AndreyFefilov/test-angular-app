@@ -2,14 +2,15 @@ import { inject, Injectable } from '@angular/core';
 
 import {select, Store} from '@ngrx/store';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
-import { RouterAction, RouterNavigatedAction } from '@ngrx/router-store/src/actions';
+import { RouterNavigatedAction } from '@ngrx/router-store/src/actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap } from 'rxjs';
+import {catchError, filter, first, map, of, switchMap, tap} from 'rxjs';
 
 import { loadMedia, loadMediaFailure, loadMediaSuccess, MediaActionsUnion } from './media.actions';
 import { MediaApiService } from '@features/media/services';
 import { selectMediaList } from '@features/media/feature-state/media.reducer';
 import { MediaActions, MediaState } from '@features/media/feature-state';
+import { RoutesPathsEnum } from '@core/enums';
 
 @Injectable()
 export class MediaEffects {
@@ -30,7 +31,10 @@ export class MediaEffects {
 
   readonly mediaNavigatedEnd$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType<RouterAction<RouterNavigatedAction>>(ROUTER_NAVIGATED),
+      ofType<RouterNavigatedAction>(ROUTER_NAVIGATED),
+      filter(({ payload }: RouterNavigatedAction) =>
+        payload.event.url.endsWith(RoutesPathsEnum.Feed)
+      ),
       switchMap(() => this.store.pipe(
           select(selectMediaList),
           first()

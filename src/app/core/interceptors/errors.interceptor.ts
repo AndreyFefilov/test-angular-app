@@ -19,7 +19,7 @@ export class ErrorsInterceptor implements HttpInterceptor {
   private readonly errorsHandlerService = inject(ErrorsHandlerService);
   private readonly authService = inject(AuthService);
   private readonly store = inject(Store<AuthState>);
-  private readonly actions$ = inject(Actions);
+  private readonly actions$ = inject(Actions<AuthState>);
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(

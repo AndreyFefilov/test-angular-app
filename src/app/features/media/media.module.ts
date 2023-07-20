@@ -10,6 +10,7 @@ import {
   TuiElasticContainerModule,
   TuiLineClampModule
 } from '@taiga-ui/kit';
+import { TuiPreviewModule } from '@taiga-ui/addon-preview';
 import { TuiMediaModule } from '@taiga-ui/cdk';
 
 import { MediaRoutingModule } from '@features/media/media-routing.module';
@@ -22,7 +23,6 @@ import {
   MediaCardHeaderComponent,
   MediaCardComponent
 } from '@features/media/components';
-import {TuiPreviewModule} from "@taiga-ui/addon-preview";
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RoutesPathsEnum} from "@core/enums";
+import { RoutesPathsEnum } from '@core/enums';
 
 @Component({
   selector: 'app-home',

@@ -1,4 +1,5 @@
 import { inject, Injectable} from '@angular/core';
+import { HttpRequest } from '@angular/common/http';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -10,7 +11,6 @@ import {
   AUTH_BODY_TOKEN,
   AUTH_URL_TOKEN
 } from '@core/tokens';
-import {HttpRequest} from "@angular/common/http";
 
 type AuthTokens = Omit<AuthData, 'user_id'>;
 

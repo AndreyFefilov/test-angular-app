@@ -3,7 +3,7 @@ import { Directive, HostListener, inject } from '@angular/core';
 import { NavigationService } from '@core/services';
 
 @Directive({
-  selector: '[goBackButton]',
+  selector: '[appGoBackButton]',
   standalone: true
 })
 export class GoBackDirective {

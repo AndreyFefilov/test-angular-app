@@ -5,10 +5,11 @@ import { ROUTER_NAVIGATED, RouterNavigatedAction } from '@ngrx/router-store';
 import { map } from 'rxjs';
 
 import { setHeaderTitle } from '@state/header/header.actions';
+import { HeaderState } from '@state/header/header.state';
 
 @Injectable()
 export class HeaderEffects {
-  private readonly actions$ = inject(Actions);
+  private readonly actions$ = inject(Actions<HeaderState>);
 
   readonly navigationEnd$ = createEffect(() =>
     this.actions$.pipe(

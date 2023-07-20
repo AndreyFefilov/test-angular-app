@@ -1,4 +1,11 @@
-import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createReducer,
+  createSelector,
+  on,
+  ActionReducer,
+  INIT,
+} from '@ngrx/store';
 
 import { checkAuthStatus, logInFailure, logInSuccess, logOut, refreshTokenSuccess } from './auth.actions';
 import { AuthState, initialAuthState } from './auth.state';
@@ -17,8 +24,17 @@ export const authReducer = createReducer(
   })),
   on(logInFailure, (): AuthState => ({ ...initialAuthState })),
   on(checkAuthStatus, (state, { isLoggedIn }): AuthState => ({ ...state, isLoggedIn })),
-  on(logOut, (): AuthState => ({ ...initialAuthState })),
 );
+
+export function logOutMetaReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return (state, action) => {
+    if ( action.type === logOut().type) {
+      return reducer( undefined, { type: INIT });
+    }
+
+    return reducer(state, action);
+  };
+}
 
 export const selectAuthFeature = createFeatureSelector<AuthState>('auth');
 

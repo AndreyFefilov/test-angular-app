@@ -7,13 +7,13 @@
       icon="tuiIconChevronLeft"
       type="button"
       tuiButton
-      goBackButton
+      appGoBackButton
     >
       Назад
     </button>
 
     <h6 class="header__title-text" >
-      {{ headerTitle() ?? 'Тестовое Web-приложение' }}
+      {{ headerTitle() || 'Авторизация' }}
     </h6>
   </div>
 

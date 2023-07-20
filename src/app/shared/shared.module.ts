@@ -11,8 +11,8 @@ import {
 import { TuiIslandModule } from '@taiga-ui/kit';
 import { TuiBlockStatusModule } from '@taiga-ui/layout';
 
-import { GoBackDirective } from '@shared/directives';
-import { DeclensionRuDirective, NumberToDatePipe } from '@shared/pipes';
+import { DeclensionRuDirective, GoBackDirective } from '@shared/directives';
+import { NumberToDatePipe } from '@shared/pipes';
 
 const MODULES = [
   CommonModule,

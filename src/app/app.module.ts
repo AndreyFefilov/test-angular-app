@@ -21,7 +21,7 @@ import { appInitFactory } from '@core/factories/app-init.factory';
 import { environment } from '@environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { effects, reducers } from './state';
+import { effects, metaReducers, reducers } from './state';
 
 registerLocaleData(ru, 'ru');
 
@@ -36,7 +36,7 @@ registerLocaleData(ru, 'ru');
     TuiRootModule,
     TuiPreviewModule,
     CoreModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({

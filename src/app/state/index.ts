@@ -1,4 +1,4 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import * as fromRouter from '@ngrx/router-store';
 
@@ -19,6 +19,8 @@ export const reducers: ActionReducerMap<AppState> = {
   header: fromHeader.headerReducer,
   [fromRouter.DEFAULT_ROUTER_FEATURENAME]: fromRouter.routerReducer
 };
+
+export const metaReducers: MetaReducer[] = [fromAuth.logOutMetaReducer];
 
 export const effects = [
   fromAuth.AuthEffects,

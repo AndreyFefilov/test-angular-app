@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 
 import { AuthActions } from '@state/auth';
 import { MediaActions } from '@features/media/feature-state';
+import { LoadingProcessState } from './loading-process.state';
 import { setLoadingInProcess } from './loading-process.actions';
 
 const START_LOADING_ACTIONS = [
@@ -21,7 +22,7 @@ const STOP_LOADING_ACTIONS = [
 
 @Injectable()
 export class LoadingProcessEffects {
-  private readonly actions$ = inject(Actions);
+  private readonly actions$ = inject(Actions<LoadingProcessState>);
 
   readonly startLoading$ = createEffect(() =>
     this.actions$.pipe(
